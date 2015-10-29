@@ -1,10 +1,11 @@
 <h1>Hello</h1>
 
-<%= link_to "Add Workout", "#", class:"btn btn-success" %>
+<%= link_to "Add Workout", workouts_path, class:"btn btn-success" %>
 <%= calendar do |date| %>
  <%= date.day %>
 <% end %>
 
 <% @workouts.each do |workout| %>
 <%= workout.name %>
+<%= workout.schedule %>
 <% end %>

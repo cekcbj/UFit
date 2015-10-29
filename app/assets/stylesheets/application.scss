@@ -1,2 +1,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.calendar { width: 30%;}
+
+td, th {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+th {
+  background: #DDD;
+}
+
+
+
+.notmonth { color:#ccc;}
+
+.today {background-color: #D7F2FF;}
