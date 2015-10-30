@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   def index
     @workouts = Workout.all
-  end
+    @workouts_by_date = @workouts.group_by(&:date)
+  end 
 end

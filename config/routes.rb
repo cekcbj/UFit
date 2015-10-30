@@ -9,8 +9,14 @@ Rails.application.routes.draw do
 
   post 'workouts' => 'workouts#create'
 
-  
+  get 'workouts/:id/' => 'workouts#show', as: :workout
 
+  get 'workouts/exercises' => 'exercise#new', as: :exercises
+
+  post 'workouts/exercises' => 'exercise#create'
+
+
+  post "/workouts/add/:exercise_id" => "workouts#add", as: :add_to_workout
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,0 +1,14 @@
+<h1><%= @workout.name %>
+  <ul>
+    <% @workout.workout_items.each do |workout_item| %>
+      <tr id="workout-<%= workout_item.exercise.id %>">
+        <td><%= workout_item.exercise.name %></td>
+        <% end %>
+  </ul>
+
+  <%= simple_form_for @exercise do |f| %>
+    <%= f.input :name %>
+    <%= f.input :sets  %>
+    <%= f.input :reps  %>
+    <%= f.button :submit, "Add To workout", add_to_cart_path(exercise_id: exercise.id), method: :post, class: "btn btn-success" %>
+  <% end %>

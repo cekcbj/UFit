@@ -2,10 +2,17 @@
 
 <%= link_to "Add Workout", workouts_path, class:"btn btn-success" %>
 <%= calendar do |date| %>
- <%= date.day %>
+  <%= date.day %>
+  <% if @workouts_by_date[date] %>
+    <ul>
+      <%@workouts_by_date[date].each do |workout| %>
+        <li><%= link_to workout.name, workout %>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
 
 <% @workouts.each do |workout| %>
 <%= workout.name %>
-<%= workout.schedule %>
+<%= workout.schedule.day %>
 <% end %>
