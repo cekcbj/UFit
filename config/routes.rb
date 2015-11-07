@@ -5,6 +5,7 @@ root 'dashboard#index'
 
    post 'users' => 'users#create'
 
+   get 'users/discover' => 'users#discover', as: :discover
     get 'users/:id' => 'users#show', as: :user
 
    get '/signin' => 'sessions#new', as: :sign_in

@@ -31,8 +31,8 @@
 <p>
   <strong>Schedule:</strong>
   <%# Prints out a human-friendly description of the schedule, such as %>
-  <%= @workouts.schedule %>
+  <%= @workout.schedule %>
 </p>
-puts @event.schedule.occurrences(Time.now + 1.year)
+<%= puts @workout.schedule.occurrences(Time.now + 1.year) %>
 # Export to ical
-puts @event.schedule.to_ical
+puts @workouts.schedule.to_ical

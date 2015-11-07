@@ -1,2 +1,11 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+
+<% if current_user.following? @user %>
+        <%= link_to "Stop Following #{@user.first_name}", stop_following_user_path(id: @user.id), method: :post %>
+
+<% @workouts.each do |workout| %>
+<%=react_component 'Workout',{workout: workout} %>
+  <% end %>
+
+  <% else %>
+    <%= link_to "Follow #{@user.first_name}", follow_user_path(id: @user.id), method: :post %>
+  <% end %>
