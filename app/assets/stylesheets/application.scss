@@ -1,7 +1,13 @@
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+a:hover { text-decoration: none;}
+
+body {padding:100px;}
 .calendar { width: 30%;}
+
+.reps { margin-top:10px;}
 
 td, th {
   font-family: sans-serif;
@@ -12,7 +18,105 @@ th {
   background: #DDD;
 }
 
+.navbar{
+background-color:#7f8c8d;
+padding-top: 15px;
+  li{
+    color:#3E4771;
+  }
+  a {
+    text-decoration: none;
+    color:#F4B350;
+  }
 
+}
+.round-img {
+  border:solid 3px;
+  border-radius: 50px;
+}
+
+.workout-button {
+
+  background-color: #3E4771;
+  padding:8px;
+  margin-bottom: 15px;
+}
+.add-workout-button {
+  color:#fff;
+    font-size: 1.5em;
+}
+
+body {
+  padding-top: 65px;
+}
+
+.callout {
+  margin: 0;
+}
+
+.close, .mark-done {
+  transition: opacity 0.3s linear,
+    color 0.3s linear;
+}
+
+.close:hover {
+  color: #DD0000;
+}
+
+.mark-done {
+  opacity: 0.2;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.mark-done:hover {
+  opacity: 0.5;
+  color: #00DD00;
+}
+
+.callout-success {
+  text-decoration: line-through;
+}
+
+
+.todo-form {
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+i {
+  font-style: normal !important;
+}
+
+.workout-item-show th {
+  font-size:15px;
+  margin-right:15px;
+  background-color: white;
+  padding:10px;
+  td {
+    font-color:blue;
+  }
+
+}
+.workout-form{
+display:none;
+}
+
+
+
+
+.workoutname{
+  color:red;
+}
+
+.workout-item-modal{
+  border:3px solid;
+  border-color:green;
+  width:300px;
+  margin: 10px;
+  padding:10px;
+  border-radius:3px;
+}
 
 .notmonth { color:#ccc;}
 

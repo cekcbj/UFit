@@ -1,17 +1,12 @@
-<%= simple_form_for(@workout) do |f| %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :schedule %><br>
-    <%= f.input :schedule, as: :schedule %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
+<div class ="container">
+  <div class="row col-md-offset-2 row col-md-6 ">
+    <%= simple_form_for(@workout) do |w| %>
+      <%=w.input :name , label:"Name", placeholder:"Workout Name", input_html:{class: "validate"}%>
+      <div class="field">
+        <%= w.label :schedule %><br>
+        <%= w.schedule_select :schedule, style: :bootstrap %>
+      </div>
+        <%=w.button :submit %>
 <% end %>
+
+        

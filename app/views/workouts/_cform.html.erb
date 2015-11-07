@@ -1,0 +1,14 @@
+
+<%= simple_form_for @workout do |f| %>
+  <%= f.input :name, :hint => 'Name your workout'  %>
+  <%= f.label :schedule %><br>
+  <%= f.schedule_select :schedule, style: :bootstrap %>
+  <div class="nav-tabs" role='tablist'>
+  <%= link_to 'Exercises', class:"exercises", 'data-toggle' => 'tab' %>
+  <div id="exercises" class="tab-pane" role='tabpanel'>
+  <%= f.simple_fields_for :workout_items, WorkoutItem.new do |workout_item| %>
+    <%= render 'workout_item_fields', :f => workout_item %>
+    <%= link_to_add_association 'add a exercise', f, :workout_items %>
+    <%= f.button :submit, :disable_with => 'Please wait ...' %>
+  <% end %>
+<% end %>

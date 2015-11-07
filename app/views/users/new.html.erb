@@ -1,0 +1,9 @@
+<%= simple_form_for @user do |u| %>
+  <%= u.input :first_name %>
+  <%= u.input :last_name  %>
+  <%= u.input :email %>
+  <%= u.attachment_field :profile_image %>
+  <%= u.input :password %>
+  <%= u.input :password_confirmation, label: "Password Confirmation" %>
+  <%= u.submit "Sign Up", class: "btn btn-primary btn-block btn-lg" %>
+  <% end %>

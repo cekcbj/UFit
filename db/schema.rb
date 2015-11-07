@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029033348) do
+ActiveRecord::Schema.define(version: 20151107162201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,11 +19,28 @@ ActiveRecord::Schema.define(version: 20151029033348) do
   create_table "exercises", force: :cascade do |t|
     t.string   "name"
     t.integer  "workout_type_id"
-    t.integer  "sets"
-    t.integer  "reps"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "follows", force: :cascade do |t|
+    t.integer  "followable_id",                   null: false
+    t.string   "followable_type",                 null: false
+    t.integer  "follower_id",                     null: false
+    t.string   "follower_type",                   null: false
+    t.boolean  "blocked",         default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
+  add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
+
+  create_table "refile_attachments", force: :cascade do |t|
+    t.string "namespace", null: false
+  end
+
+  add_index "refile_attachments", ["namespace"], name: "index_refile_attachments_on_namespace", using: :btree
 
   create_table "schedules", force: :cascade do |t|
     t.integer  "schedulable_id"
@@ -40,11 +57,31 @@ ActiveRecord::Schema.define(version: 20151029033348) do
     t.datetime "updated_at"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "profile_image_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "workout_items", force: :cascade do |t|
     t.integer  "workout_id"
     t.integer  "exercise_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "sets"
+    t.integer  "reps"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "complete",    default: false, null: false
+  end
+
+  create_table "workout_occurrences", force: :cascade do |t|
+    t.integer  "schedulable_id"
+    t.datetime "date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "workouts", force: :cascade do |t|
@@ -52,6 +89,8 @@ ActiveRecord::Schema.define(version: 20151029033348) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date"
+    t.time     "time"
   end
 
 end

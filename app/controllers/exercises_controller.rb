@@ -8,11 +8,12 @@ class ExercisesController < ApplicationController
   end
 
   def create
-    @exercise = Exercise.new params.require(:exercise).permit(:name, :reps, :sets)
+    @exercise = Exercise.new params.require(:exercise).permit(:name)
     if @exercise.save
       redirect_to root_path, notice: "Exercise added"
     else
       render :new
     end
+  end
 
 end

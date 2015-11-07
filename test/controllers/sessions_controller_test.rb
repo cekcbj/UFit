@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ExercisesHelperTest < ActionView::TestCase
+class SessionsControllerTest < ActionController::TestCase
   def test_sanity
     flunk "Need real tests"
   end

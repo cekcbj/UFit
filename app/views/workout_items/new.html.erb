@@ -1,0 +1,22 @@
+
+<div class="container">
+
+<%=simple_form_for @workout_item do |wi| %>
+  <%= wi.simple_fields_for :exercise do |e| %>
+  <div class ="exercise-name">
+    <%= e.input :name %>
+  </div>
+  <% end %>
+  <div class= "row reps">
+    <div class="col-md-3">
+      <%=wi.input :reps %>
+    </div>
+    <div class="col-md-3">
+      <%=wi.input :sets %>
+        <%=wi.button :submit, "Add exercise" %>
+      <% end %>
+    </div>
+
+</div>
+
+</div>

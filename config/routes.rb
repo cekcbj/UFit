@@ -1,22 +1,50 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+root 'dashboard#index'
 
-  # You can have the root of your site routed with "root"
-  root 'dashboard#index'
+  get 'signup' => 'users#new', as: :sign_up
+
+   post 'users' => 'users#create'
+
+    get 'users/:id' => 'users#show', as: :user
+
+   get '/signin' => 'sessions#new', as: :sign_in
+
+   post '/signin' => 'sessions#create'
+
+  delete '/sign_out' => 'sessions#delete', as: :sign_out
 
   get 'workouts' => 'workouts#new' , as: :workouts
+
+  get 'workouts/:id/new' => 'workout_items#new', as: :workout_items
+
+  post 'workouts/:id/new' => 'workout_items#create'
 
   post 'workouts' => 'workouts#create'
 
   get 'workouts/:id/' => 'workouts#show', as: :workout
 
-  get 'workouts/exercises' => 'exercise#new', as: :exercises
+  get 'workouts/exercises' => 'exercises#new', as: :exercises
 
-  post 'workouts/exercises' => 'exercise#create'
+  post 'workouts/exercises' => 'exercises#create'
+
+    post "/users/:id/follow" => "following#create", as: :follow_user
+    post "/users/:id/stop-following" => "following#delete", as: :stop_following_user
+
 
 
   post "/workouts/add/:exercise_id" => "workouts#add", as: :add_to_workout
+
+  patch 'workouts/:id' => 'workouts#update'
+  delete 'workouts/:id' => 'workouts#destroy', as: :delete_workout
+  get 'workouts/:id/edit' => 'workouts#edit', as: :edit_workout
+
+  namespace :api do
+    get "workouts" =>  'workouts#index'
+    get "workouts/:id" => 'workouts#show'
+    post "workout_item/:id/complete" => 'workout_items#complete', as: :completed_workout_item
+  end
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

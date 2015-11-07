@@ -1,14 +1,38 @@
-<h1><%= @workout.name %>
-  <ul>
-    <% @workout.workout_items.each do |workout_item| %>
-      <tr id="workout-<%= workout_item.exercise.id %>">
-        <td><%= workout_item.exercise.name %></td>
-        <% end %>
-  </ul>
+<div class="container">
+<h1><%= @workout.name %></h1>
+<%= link_to workout_items_path, class:"btn workout-button" do%>
+  <i class="fa fa-plus-square add-workout-button"> Add exercise</i>
+<% end %>
+<%=link_to edit_workout_path(id: @workout.id) do %>
+<div class="btn btn-default"> edit this workout </div>
+<% end %>
+ <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
+ <table class="workout-item-show">
 
-  <%= simple_form_for @exercise do |f| %>
-    <%= f.input :name %>
-    <%= f.input :sets  %>
-    <%= f.input :reps  %>
-    <%= f.button :submit, "Add To workout", add_to_cart_path(exercise_id: exercise.id), method: :post, class: "btn btn-success" %>
-  <% end %>
+   <button><i class="fa fa-clock-o timer"></i></button>
+    <% @workout.workout_items.each do |workout_item| %>
+    <tr>
+       <th>Name</th>
+       <th>Reps</th>
+       <th>Sets</th>
+    </tr>
+    <tr>
+       <td><%= workout_item.exercise.name %></td>
+       <td><%= workout_item.reps%></td>
+       <td><%= workout_item.sets%></td>
+
+    </tr>
+
+        <% end %>
+  </table>
+</div>
+
+<%=react_component 'Workout',{workout: @workout} %>
+<p>
+  <strong>Schedule:</strong>
+  <%# Prints out a human-friendly description of the schedule, such as %>
+  <%= @workouts.schedule %>
+</p>
+puts @event.schedule.occurrences(Time.now + 1.year)
+# Export to ical
+puts @event.schedule.to_ical

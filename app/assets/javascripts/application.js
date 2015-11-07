@@ -12,9 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require cocoon
+//= require materialize-sprockets
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require jquery-ui
 //= require react
 //= require react_ujs
 //= require components
 //= require_tree .
+
+$(document).on("page:load ready", function(){
+    $("input.datepicker").datepicker();
+});
+
+$('.workout-form').html("<%= j (render 'form') %>");
+$('.workout-form').slideDown(350);

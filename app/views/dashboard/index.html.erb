@@ -1,12 +1,44 @@
+
+
+<% if logged_in? %>
 <h1>Hello</h1>
 
-<%= link_to "Add Workout", workouts_path, class:"btn btn-success" %>
+<%= link_to workouts_path, class:"btn workout-button" do%>
+  <i class="fa fa-plus-square add-workout-button"> Add Workout</i>
+<% end %>
+
+<div class ="user-side">
+
+
+
+<div class= "workout-form-">
+
+</div>
+
+<aside class="col-md-4">
+<% @user ||= current_user %>
+<div class="stats">
+
+  <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), :class => "round-img" %>
+  <h5><%= @user.first_name %>
+    <strong id="following" class="stat">
+      <%= @user.follow_count %>
+    </strong>
+    following
+    <strong id="followers" class="stat">
+      <%= @user.followers_count %>
+    </strong>
+    followers
+</div>
+
+
+
 <%= calendar do |date| %>
   <%= date.day %>
   <% if @workouts_by_date[date] %>
     <ul>
       <%@workouts_by_date[date].each do |workout| %>
-        <li><%= link_to workout.name, workout %>
+        <li><%= link_to workout.name, workout %></li>
       <% end %>
     </ul>
   <% end %>
@@ -15,4 +47,13 @@
 <% @workouts.each do |workout| %>
 <%= workout.name %>
 <%= workout.schedule.day %>
+<% end %>
+
+
+<% else %>
+<div class="center jumbotron">
+    <h2>Welcome to Fake Twitter</h2>
+
+    <%= link_to "Sign up now!", sign_up_path, class: "btn btn-lg btn-primary" %>
+  </div>
 <% end %>

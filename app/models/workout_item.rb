@@ -1,4 +1,6 @@
 class WorkoutItem < ActiveRecord::Base
-  belongs_to :workouts
-  belongs_to :exercises
+  belongs_to :workout
+  belongs_to :exercise
+
+  accepts_nested_attributes_for :exercise
 end

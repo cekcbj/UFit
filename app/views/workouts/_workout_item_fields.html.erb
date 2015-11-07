@@ -1,0 +1,9 @@
+<div class="nested-fields workout-item-fields">
+<div id="exercise_from_list">
+<%= f.association :exercise, :collection => Exercise.all, :prompt => 'Choose an existing Exercise' %>
+<%= f.input :reps %>
+<%= f.input :sets %>
+   <%= link_to_add_association 'or create a exercise', f, :exercise %>
+  <%= link_to_remove_association "remove exercise", f %>
+</div>
+</div>

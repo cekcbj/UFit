@@ -27,16 +27,31 @@ gem 'react-rails'
 
 gem 'simple_form'
 
+gem 'rails-erd'
+
+gem 'whenever', :require => false
+
+gem 'materialize-sass'
+gem 'jquery-ui-rails'
 gem 'ice_cube'
 gem 'schedulable'
+gem "cocoon"
 
 gem "minitest-rails"
 
 group :test do
   gem "minitest-rails-capybara"
 end
+
+gem 'refile-postgres'
+
+gem "refile", require: "refile/rails"
+
+gem "refile-mini_magick"
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+ gem 'bcrypt', '~> 3.1.7'
+
+ gem 'acts_as_follower'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

@@ -1,0 +1,10 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  workout_id: 1
+  date: 2015-11-07 10:22:01
+
+two:
+  workout_id: 1
+  date: 2015-11-07 10:22:01
