@@ -1,5 +1,6 @@
 <div class="container">
 <h1><%= @workout.name %></h1>
+<% if @workout.user == current_user %>
 <%= link_to workout_items_path, class:"btn workout-button" do%>
   <i class="fa fa-plus-square add-workout-button"> Add exercise</i>
 <% end %>
@@ -8,7 +9,10 @@
 <% end %>
  <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
  <table class="workout-item-show">
+   <% else %>
 
+ <%= button_to 'Copy Workout', copy_workout_path(workout: @workout), method: :post, class: "btn-default" %>
+ <% end %>
    <button><i class="fa fa-clock-o timer"></i></button>
     <% @workout.workout_items.each do |workout_item| %>
     <tr>

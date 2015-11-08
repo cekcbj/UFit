@@ -1,8 +1,7 @@
 
 <%= simple_form_for @workout do |f| %>
   <%= f.input :name, :hint => 'Name your workout'  %>
-  <%= f.label :schedule %><br>
-  <%= f.schedule_select :schedule, style: :bootstrap %>
+  <%= f.input :schedule, as: :schedule %><br>
   <div class="nav-tabs" role='tablist'>
   <%= link_to 'Exercises', class:"exercises", 'data-toggle' => 'tab' %>
   <div id="exercises" class="tab-pane" role='tabpanel'>

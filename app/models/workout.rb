@@ -7,6 +7,10 @@ class Workout < ActiveRecord::Base
   has_many :workout_items
   has_many :exercises, :through => :workout_items, :class_name => 'Exercise'
 
+  amoeba do
+   enable
+ end
+
   def date
     self.schedule.date
   end

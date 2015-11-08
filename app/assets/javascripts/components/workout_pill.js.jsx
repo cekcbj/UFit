@@ -25,7 +25,7 @@ var WorkoutPill = React.createClass({
       Reps
       <span>{this.state.workout_item.reps}</span>
       Sets
-      <td>{this.state.workout_item.sets}</td>
+      {this.state.workout_item.sets}
       {workout_item}
       </div>
   )

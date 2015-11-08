@@ -8,7 +8,7 @@ class WorkoutsController < ApplicationController
   def create
     @workout = current_user.workouts.new(workout_params)
     if @workout.save
-      redirect_to root_path
+      redirect_to workout_path(id: @workout.id)
     end
   end
 
@@ -18,13 +18,12 @@ class WorkoutsController < ApplicationController
 
   def edit
     @workout = Workout.find(params[:id])
-    @workout_items= @workout.workout_items.all
 end
 
 
   def update
      @workout = Workout.find params[:id]
-     if @workout_items.update workout_params
+     if @workout.update workout_params
        redirect_to workout_path(id: @workout.id)
      else
        render :edit
@@ -37,12 +36,19 @@ end
        redirect_to root_path
      end
 
+     def steal
+       @my_workout = Workout.find(params[:id])
+       @new_workout = @my_workout.amoeba_dup
+       @new_workout.user = current_user
+       @new_workout.save
+     end
+
 
 
   private
 
   def workout_params
-    params.require(:workout).permit(:name, :time, schedule_attributes: Schedulable::ScheduleSupport.param_names, workout_items_attributes: [ :reps, :sets, :exercise_id, exercise_attributes:[ :id, :name]])
+    params.require(:workout).permit(:name, :time, schedule_attributes: Schedulable::ScheduleSupport.param_names)
   end
 
 end

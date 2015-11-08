@@ -1,11 +1,23 @@
-
-<% if current_user.following? @user %>
+<div class = "container">
+<% if current_user.following? @user%>
         <%= link_to "Stop Following #{@user.first_name}", stop_following_user_path(id: @user.id), method: :post %>
+ <div class="sidebar">
+   <div class= "image">
 
 <% @workouts.each do |workout| %>
+ <% if workout.began %>
 <%=react_component 'Workout',{workout: workout} %>
+<% else %>
+ this user has no work outs in progress
+ <br>
+ Workouts scheduled
+ <div class="workouts-list">
+   <%= link_to "View #{workout.name}", workout_path(id: workout.id) %>
+ </div>
+ <% end %>
   <% end %>
 
   <% else %>
     <%= link_to "Follow #{@user.first_name}", follow_user_path(id: @user.id), method: :post %>
   <% end %>
+</div>

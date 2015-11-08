@@ -30,7 +30,7 @@ root 'dashboard#index'
 
     post "/users/:id/follow" => "following#create", as: :follow_user
     post "/users/:id/stop-following" => "following#delete", as: :stop_following_user
-
+  post 'workouts/:id' => 'workouts#steal', as: :copy_workout
 
 
   post "/workouts/add/:exercise_id" => "workouts#add", as: :add_to_workout
