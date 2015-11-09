@@ -9,6 +9,8 @@ var Workout = React.createClass({
     }
   },
 
+  
+
   componentDidMount(){
     var component = this;
     $.getJSON("/api/workouts/" + this.props.workout.id).then(function(json){

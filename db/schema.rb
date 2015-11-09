@@ -97,12 +97,12 @@ ActiveRecord::Schema.define(version: 20151108215815) do
   create_table "workouts", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.datetime "date"
     t.time     "time"
-    t.boolean  "began"
-    t.boolean  "completed"
+    t.boolean  "began",      default: false, null: false
+    t.boolean  "completed",  default: false, null: false
   end
 
 end
