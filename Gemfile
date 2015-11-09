@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.2.3'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'amoeba'
