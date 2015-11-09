@@ -48,7 +48,7 @@ end
   private
 
   def workout_params
-    params.require(:workout).permit(:name, :time, schedule_attributes: Schedulable::ScheduleSupport.param_names)
+    params.require(:workout).permit(:name, :time, :began, :complete, schedule_attributes: Schedulable::ScheduleSupport.param_names)
   end
 
 end

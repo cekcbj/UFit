@@ -4,7 +4,7 @@ var WorkoutItem = React.createClass({
     return (<div className="workoutitem">
     <div className="workoutname">
       <strong>name</strong>
-      {this.props.workout_item.exercise.name}
+      {this.props.workout_item.name}
     </div>
 
     <div className="reps">

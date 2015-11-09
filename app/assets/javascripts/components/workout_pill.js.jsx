@@ -7,6 +7,17 @@ var WorkoutPill = React.createClass({
     }
   },
 
+  handleViewMessage(){
+    var component = this;
+
+    $.post(this.state.workout.began)
+    .done(function(json){
+      component.setState({workout: json.workout });
+    })
+
+    component.setState({clickEnabled: !component.state.clickEnabled});
+  },
+
   render: function() {
     var component = this;
 
@@ -18,15 +29,12 @@ var WorkoutPill = React.createClass({
 
     return (
       <div className="workout-item-modal">
-      <i className='ficon ficon-checkmark mark-done' onClick={this.props.onClickDone}></i>
-      <span>{this.props.value}</span>
-      <i className='close' onClick={this.props.onClickClose}>&times;</i>
-      <h4>{this.state.workout_item.exercise.name}</h4>
-      Reps
-      <span>{this.state.workout_item.reps}</span>
-      Sets
-      {this.state.workout_item.sets}
-      {workout_item}
+        <h4>{this.state.workout_item.exercise.name}</h4>
+        Reps
+        <span>{this.state.workout_item.reps}</span><br/>
+        Sets
+        {this.state.workout_item.sets}
+        {workout_item}
       </div>
   )
   }

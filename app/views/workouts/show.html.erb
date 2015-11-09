@@ -10,7 +10,7 @@
  <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
  <table class="workout-item-show">
    <% else %>
-
+<!--  -->
  <%= button_to 'Copy Workout', copy_workout_path(workout: @workout), method: :post, class: "btn-default" %>
  <% end %>
    <button><i class="fa fa-clock-o timer"></i></button>
@@ -21,7 +21,7 @@
        <th>Sets</th>
     </tr>
     <tr>
-       <td><%= workout_item.exercise.name %></td>
+       <td><%= workout_item.exercise ? workout_item.exercise.name : "" %></td>
        <td><%= workout_item.reps%></td>
        <td><%= workout_item.sets%></td>
 
@@ -30,8 +30,8 @@
         <% end %>
   </table>
 </div>
-
-<%=react_component 'Workout',{workout: @workout} %>
+<%=react_component 'AddWorkout',{workout: @workout} %>
+<%#react_component 'Workout',{workout: @workout} %>
 <p>
   <strong>Schedule:</strong>
   <%# Prints out a human-friendly description of the schedule, such as %>

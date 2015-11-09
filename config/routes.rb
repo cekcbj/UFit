@@ -28,8 +28,8 @@ root 'dashboard#index'
 
   post 'workouts/exercises' => 'exercises#create'
 
-    post "/users/:id/follow" => "following#create", as: :follow_user
-    post "/users/:id/stop-following" => "following#delete", as: :stop_following_user
+  post "/users/:id/follow" => "following#create", as: :follow_user
+  post "/users/:id/stop-following" => "following#delete", as: :stop_following_user
   post 'workouts/:id' => 'workouts#steal', as: :copy_workout
 
 
@@ -40,9 +40,13 @@ root 'dashboard#index'
   get 'workouts/:id/edit' => 'workouts#edit', as: :edit_workout
 
   namespace :api do
+    get 'workouts/:id/workout_items' => 'workout_items#new', as: :workout_items
     get "workouts" =>  'workouts#index'
     get "workouts/:id" => 'workouts#show'
-    post "workout_item/:id/complete" => 'workout_items#complete', as: :completed_workout_item
+    post "workouts/:id/began" => 'workouts#began', as: :began_workout
+
+    post "workout_items/create" => 'workout_items#create', as: :completed_workout_item
+
   end
 
 

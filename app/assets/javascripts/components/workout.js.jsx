@@ -1,19 +1,21 @@
-
-
 var Workout = React.createClass({
   getInitialState: function() {
     return {
+      clickEnabled: false,
       workout:{
         workout_items: []
       }
     }
   },
 
-  
+
 
   componentDidMount(){
     var component = this;
+    console.log('workout component mounted!!')
     $.getJSON("/api/workouts/" + this.props.workout.id).then(function(json){
+        console.log('workout AJAX fecth --->')
+        console.log(json)
         component.setState({workout: json.workout});
 
     })
@@ -22,12 +24,13 @@ var Workout = React.createClass({
 
 render: function() {
   var component = this;
-  return <div className="inbox">
-  {this.state.workout.workout_items.map(function(workout_item){
-    return <WorkoutPill key={workout_item.id} workout_item={workout_item}></WorkoutPill>
-  })}
+  return (
+    <div className="inbox">
 
-   </div>;
+      {this.state.workout.workout_items.map(function(workout_item){
+        return <WorkoutPill key={workout_item.id} workout_item={workout_item}></WorkoutPill>
+      })}
+   </div>);
 }
 });
 
