@@ -13,16 +13,16 @@ class WorkoutsController < ApplicationController
   end
 
   def show
-    @workout = Workout.find(params[:id])
+    @workout = Workout.find_by(id: params[:id])
   end
 
   def edit
-    @workout = Workout.find(params[:id])
+    @workout = Workout.find_by(id: params[:id])
 end
 
 
   def update
-     @workout = Workout.find params[:id]
+     @workout = Workout.find_by(id: params[:id])
      if @workout.update workout_params
        redirect_to workout_path(id: @workout.id)
      else
@@ -31,7 +31,7 @@ end
    end
 
      def destroy
-       @workout = Workout.find params[:id]
+       @workout = Workout.find_by(id: params[:id])
        @workout.destroy
        redirect_to root_path
      end

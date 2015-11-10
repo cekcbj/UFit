@@ -3,7 +3,7 @@
 <% if logged_in? %>
 <h1>Hello</h1>
 
-<%= link_to workouts_path, class:"btn workout-button" do%>
+<%= link_to new_workout_path, class:"btn workout-button" do%>
   <i class="fa fa-plus-square add-workout-button"> Add Workout</i>
 <% end %>
 
@@ -33,7 +33,7 @@
 
 
 
-<%= calendar do |date| %>
+<% calendar do |date| %>
   <%= date.day %>
   <% if @workouts_by_date[date] %>
     <ul>
@@ -44,11 +44,6 @@
   <% end %>
 <% end %>
 
-<% @workouts.each do |workout| %>
-<%= workout.name %>
-<%= workout.schedule.day %>
-<% end %>
-
 
 <% else %>
 <div class="center jumbotron">
@@ -57,3 +52,10 @@
     <%= link_to "Sign up now!", sign_up_path, class: "btn btn-lg btn-primary" %>
   </div>
 <% end %>
+
+<h2>Workouts</h2>
+<ul class="workouts">
+  <% @workouts.each do |workout| %>
+    <li><%=link_to workout.name, enter_workout_path(workout_id: workout.id)%></li>
+  <% end %>
+</ul>

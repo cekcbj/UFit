@@ -33,10 +33,36 @@ var AddWorkout = React.createClass({
   },
 
 
+  //(1) create callback to handle data
+  _updateThisCompoent(newWorkoutItem){
+    console.log('in the parent, we can set state everywhr')
+    console.log(newWorkoutItem)
+
+    console.log('this isnt good, "workout_item" is different...')
+    console.log(this.state.workout.workout_items[0])
+
+
+    var arrayClone = this.state.workout.workout_items.map(function(wi){
+      return wi
+    })
+
+    arrayClone.push(newWorkoutItem.workout_item)
+
+    console.log(arrayClone)
+
+    var workoutStateCopy = JSON.parse(JSON.stringify(this.state.workout))
+    workoutStateCopy.workout_items = arrayClone
+
+    this.setState({
+      workout: workoutStateCopy
+    })
+
+    //(2) Pass the callback as a prop to the child-component
+       //e.g. <MyComponent  notifyParent={this._updateThisCompoent}/>
+  },
 
   render: function() {
     console.log('current workout: ')
-    console.log(this.state.workout)
     console.log(this.state.workout)
 
     //workouts sanity check
@@ -46,16 +72,15 @@ var AddWorkout = React.createClass({
         <hr/>
         <div className="workouts">
           {this.state.workout.workout_items.map(function(workout_item){
-            console.log("workout item in pill??")
-            console.log(workout_item)
-
+            // console.log("workout item in pill??")
+            // console.log(workout_item)
             return <WorkoutPill key={workout_item.id} workout_item={workout_item}></WorkoutPill>
           })}
         </div>
 
         <hr/>
 
-        <WorkoutItemForm workout={this.state.workout}></WorkoutItemForm>
+        <WorkoutItemForm workout={this.state.workout} notifyParent={this._updateThisCompoent} ></WorkoutItemForm>
 
       </div>
   )

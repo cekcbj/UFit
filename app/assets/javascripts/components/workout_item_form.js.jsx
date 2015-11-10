@@ -17,7 +17,7 @@ var WorkoutItemForm = React.createClass({
         }
       };
 
-      console.log('workout id? ', this.props.workout.id);
+        console.log('workout id? ', this.props.workout.id);
 
       // console.log(workout_itemJSON);
       $.post("/api/workout_items/create.json", workout_itemJSON).then(function(serverResponse){
@@ -27,8 +27,8 @@ var WorkoutItemForm = React.createClass({
         component.refs.reps.value = "";
         component.refs.sets.value = "";
 
-        // update the list
-
+        //(3)
+        component.props.notifyParent(serverResponse)
       });
     },
 

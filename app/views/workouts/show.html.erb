@@ -1,36 +1,39 @@
 <div class="container">
-<h1><%= @workout.name %></h1>
-<% if @workout.user == current_user %>
-<%= link_to workout_items_path, class:"btn workout-button" do%>
-  <i class="fa fa-plus-square add-workout-button"> Add exercise</i>
-<% end %>
-<%=link_to edit_workout_path(id: @workout.id) do %>
-<div class="btn btn-default"> edit this workout </div>
-<% end %>
- <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
- <table class="workout-item-show">
-   <% else %>
-<!--  -->
- <%= button_to 'Copy Workout', copy_workout_path(workout: @workout), method: :post, class: "btn-default" %>
- <% end %>
+  <h1><%= @workout.name %></h1>
+  <% if @workout.user == current_user %>
+  <%= link_to workout_items_path, class:"btn workout-button" do%>
+    <i class="fa fa-plus-square add-workout-button"> Add exercise</i>
+  <% end %>
+  <%=link_to edit_workout_path(id: @workout.id) do %>
+  <div class="btn btn-default"> edit this workout </div>
+  <% end %>
+   <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
+     <% else %>
+  <!--  -->
+   <%= button_to 'Copy Workout', copy_workout_path(workout: @workout), method: :post, class: "btn-default" %>
+   <% end %>
    <button><i class="fa fa-clock-o timer"></i></button>
-    <% @workout.workout_items.each do |workout_item| %>
-    <tr>
-       <th>Name</th>
-       <th>Reps</th>
-       <th>Sets</th>
-    </tr>
-    <tr>
-       <td><%= workout_item.exercise ? workout_item.exercise.name : "" %></td>
-       <td><%= workout_item.reps%></td>
-       <td><%= workout_item.sets%></td>
+    <!--<table class="workout-item-show table">
+      <thead>
+        <tr>
+           <th>Name</th>
+           <th>Reps</th>
+           <th>Sets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @workout.workout_items.each do |workout_item| %>
+        <tr>
+           <td><%= workout_item.exercise ? workout_item.exercise.name : "" %></td>
+           <td><%= workout_item.reps%></td>
+           <td><%= workout_item.sets%></td>
+        </tr>
+          <% end %>
+      </tbody>
 
-    </tr>
-
-        <% end %>
-  </table>
+    </table> -->
 </div>
-<%=react_component 'AddWorkout',{workout: @workout} %>
+<%=react_component 'AddWorkout',{workout: @workout}%>
 <%#react_component 'Workout',{workout: @workout} %>
 <p>
   <strong>Schedule:</strong>

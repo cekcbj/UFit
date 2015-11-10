@@ -10,8 +10,7 @@ var WorkoutPill = React.createClass({
   handleViewMessage(){
     var component = this;
 
-    $.post(this.state.workout.began)
-    .done(function(json){
+    $.post(this.state.workout.began).done(function(json){
       component.setState({workout: json.workout });
     })
 

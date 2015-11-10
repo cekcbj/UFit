@@ -1,36 +1,31 @@
 Rails.application.routes.draw do
-root 'dashboard#index'
+   root 'dashboard#index'
 
-  get 'signup' => 'users#new', as: :sign_up
+   get 'dashboard/:workout_id' => 'dashboard#show', as: :enter_workout
 
-   post 'users' => 'users#create'
+   get 'users/discover' => 'users#index', as: :discover
+   get 'users/:id' =>      'users#show', as: :user
+   get'signup' =>          'users#new', as: :sign_up
+   post 'users' =>         'users#create'
 
-   get 'users/discover' => 'users#discover', as: :discover
-    get 'users/:id' => 'users#show', as: :user
+   get '/signin' =>        'sessions#new', as: :sign_in
+   post '/signin' =>       'sessions#create'
+   delete '/sign_out' =>   'sessions#delete', as: :sign_out
 
-   get '/signin' => 'sessions#new', as: :sign_in
+  get 'workout_items/:id/new' => 'workout_items#new', as: :workout_items
+  post 'workout_items/:id' =>    'workout_items#create'
 
-   post '/signin' => 'sessions#create'
 
-  delete '/sign_out' => 'sessions#delete', as: :sign_out
+  get 'workouts/new' =>  'workouts#new', as: :new_workout
+  post 'workouts' =>    'workouts#create', as: :workouts
+  get 'workouts/:id' => 'workouts#show', as: :workout
+  post 'workouts/:id' => 'workouts#s  teal', as: :copy_workout
+  # get 'exercises/:id' => 'exercises#new', as: :exercises
+  # post 'workouts/exercises' => 'exercises#create'
 
-  get 'workouts' => 'workouts#new' , as: :workouts
-
-  get 'workouts/:id/new' => 'workout_items#new', as: :workout_items
-
-  post 'workouts/:id/new' => 'workout_items#create'
-
-  post 'workouts' => 'workouts#create'
-
-  get 'workouts/:id/' => 'workouts#show', as: :workout
-
-  get 'workouts/exercises' => 'exercises#new', as: :exercises
-
-  post 'workouts/exercises' => 'exercises#create'
-
-  post "/users/:id/follow" => "following#create", as: :follow_user
+  post "/users/:id/follow" =>         "following#create", as: :follow_user
   post "/users/:id/stop-following" => "following#delete", as: :stop_following_user
-  post 'workouts/:id' => 'workouts#steal', as: :copy_workout
+
 
 
   post "/workouts/add/:exercise_id" => "workouts#add", as: :add_to_workout
@@ -46,7 +41,7 @@ root 'dashboard#index'
     post "workouts/:id/began" => 'workouts#began', as: :began_workout
 
     post "workout_items/create" => 'workout_items#create', as: :completed_workout_item
-
+    patch "workout_items/update" => 'workout_items#update' 
   end
 
 

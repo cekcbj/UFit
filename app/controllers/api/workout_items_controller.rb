@@ -12,11 +12,9 @@ class Api::WorkoutItemsController < ApplicationController
   end
 
   def create
-     #START- JSON on the way in
-    request.format = :json
     puts "--(api-workoutitems-params)--"*20
     pp params
-    @workout = Workout.find(params[:workout_item][:workout_id])
+    @workout = Workout.find_by(id: params[:workout_item][:workout_id])
     @workout_item = @workout.workout_items.new(workout_item_params)
 
     puts "--(api-workoutitems-PREsave)--"*20
@@ -34,6 +32,26 @@ class Api::WorkoutItemsController < ApplicationController
 
    def edit
      @workout_item = workout_item.find(params[:id])
+   end
+
+   def update
+     puts "--(api-workoutitems-DATA-from-client)--"*20
+     dataFromClient = JSON.parse(params[:jsonData])
+     #  @workout = Workout.find_by(id: params[:workout_item][:workout_id])
+
+     @workout_item = WorkoutItem.find_by(id: dataFromClient["id"])
+
+     puts "--(api-workoutitems-PREUpdate)--"*20
+     pp @workout_item
+     @workout_item.completed = true
+     if @workout_item.save
+       puts "--(api-workoutitems-POSTUpdate)--"*20
+       pp @workout_item
+       # END- JSON on the way out
+       render(:show)
+     else
+       render(json: {msg: 'save NOT successful :('}, status: 400)
+     end
    end
 
    def destroy
