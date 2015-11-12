@@ -1,4 +1,5 @@
 var WorkoutItemForm = React.createClass({
+
     handleButtonClick(){
       var component = this;
       var name = this.refs.name.value;

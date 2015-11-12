@@ -18,14 +18,18 @@
 //= require turbolinks
 //= require jquery-ui
 //= require moment
+//=require underscore
+//=require clndr-rails
 //= require bootstrap-datetimepicker
 //= require react
 //= require react_ujs
 //= require components
 //= require_tree .
 
-$(document).on("page:load ready", function(){
-    $("input.datepicker").datepicker();
+
+$(".navbar-right a").on("click", function(){
+   $(".navbar").find(".active").removeClass("active");
+   $(this).parent().addClass("active");
 });
 
 $('.workout-form').html("<%= j (render 'form') %>");

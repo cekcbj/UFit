@@ -1,10 +1,11 @@
 var InWorkout = React.createClass({
-
   getInitialState(){
     return {
       workout: {
         name: "...loading...",
         id: this.props.workout.id,
+        began:this.props.workout.began,
+        completed:this.props.workout.completed,
         workout_items: []
       }
     }
@@ -12,102 +13,161 @@ var InWorkout = React.createClass({
 
   _fetchworkouts(){
     var component = this;
-
     $.getJSON("/api/workouts/" + this.state.workout.id + ".json")
       .then(function(json){
-        console.log('AJAX request result--->')
-        console.log(json)
-        component.setState({workout: json.workout});
+
+        component.setState({
+          workout: json.workout
+        });
       })
 
   },
 
   componentDidMount(){
-    this._fetchworkouts();
-    // this.workoutInterval = setInterval(this.fetchworkouts, 10000);
+    //this._fetchworkouts();
+     this.workoutInterval = setInterval(this._fetchworkouts, 3000);
   },
 
   componentWillUnmount(){
-    // clearInterval(this.workoutInterval);
+     clearInterval(this.workoutInterval);
   },
 
 
   //(1) create callback to handle data
-  _updateThisCompoent(newInfo){
-  },
 
-   handleButtonClick: function(data) {
+  handleStartWorkoutClick: function(){
+    var component = this.props;
+    console.log(component)
+
+    $.post("/api/dashboard/"+ this.state.workout.id +"/began")
+    .done(function(json){
+      component.setState({
+        workout: json.workout
+    })
+
+    component.setState({began: !component.state.began});
+  })
+
+},
+
+  //   $.ajax({
+  //      url: '/api/workout/update.json',
+  //      type: 'PATCH',
+  //      data: {jsonData: JSON.stringify(data)},
+  //      dataType: "json"
+  //       })
+  //
+  //      });
+  //   // var workoutStateCopy = JSON.parse(JSON.stringify(this.state.workout))
+  //   //
+  //   // workoutStateCopy.began ? workoutStateCopy.began = false : workoutStateCopy.began = true
+  //   // console.log(workoutStateCopy)
+  //
+  //
+  // },
+
+  handleSingleItemClick: function(data) {
      var component = this
      console.log("button clicked");
-     return $.ajax({
+
+     $.ajax({
         url: '/api/workout_items/update.json',
         type: 'PATCH',
         data: {jsonData: JSON.stringify(data)},
         dataType: "json"
       }).then(function(response){
 
-        console.log('workout item response')
+        console.log('workout item response (check for .complete)')
         console.log(response)
 
-        var arrayClone = component.state.workout.workout_items.map(function(wk_itm){
+        //1 find index workout_item that was updated on workout.workout_items & replace on new array
+        // var updatedWorkoutItemsList = component.state.workout.workout_items.map(function(wk_itm){
           if (wk_itm.id === response.workout_item.id){
-            console.log('workout item iterator')
-            console.log(wk_itm)
-            wk_itm.completed = true
+            console.log(wk_itm.id, " ----- ", response.workout_item.id )
+            console.log(response.workout_item)
+            console.log(wk_itm.id)
+            return response.workout_item
           }
-
           return wk_itm
 
 
+        var workoutCopy = JSON.parse(JSON.stringify(component.state.workout))
+
+        workoutCopy.workout_items = updatedWorkoutItemsList
+        console.log(workoutCopy);
+
+        component.setState({
+          workout: workoutCopy,
         })
-
-        var workoutStateCopy = JSON.parse(JSON.stringify(component.state.workout))
-        workoutStateCopy.workout_items = arrayClone
-
-
-       component.setState({
-         workout: workoutStateCopy
-       })
-    });
+      });
 
 
    },
 
+  _renderPills: function(w_itms){
+     var component = this
+     var pills = w_itms.map(function(workout_item){
 
+      var statusMsg = "NOT Complete"
+      var statusColor = "tomato"
+
+      if (workout_item.completed ) {
+        statusColor =  "#fff"
+        statusMsg = "Complete"
+      };
+
+
+      return (
+         <div className = "pillholder" style={ {background: statusColor} }>
+           <WorkoutPill key={workout_item.id}  workout_item={workout_item}></WorkoutPill>
+           <button onClick={ component.handleSingleItemClick.bind(component, workout_item) } className="pulse btn btn-default">√ Finished!</button>
+           <p><br/><br/></p>
+         </div>
+       )
+      })
+
+     return pills
+   },
+
+  _renderOverlay: function(began){
+    var overlayVisible
+    began === true ? overlayVisible = false : overlayVisible = true
+
+    console.log('workout began?? ', this.state.workout.began)
+    console.log('overlay visible ??? ', overlayVisible)
+
+    return (
+      <div className= "overlay" style={{
+          position: 'absolute',
+          zIndex: 10,
+          background: "rgba(215,215,215,.75)",
+          top: 0 , left: 0, height: '100%', width: '100%',
+          display: overlayVisible ? "block" : "none"
+        }}>
+      </div>
+    )
+  },
 
   render: function() {
     var component = this
-    console.log('current workout: ')
-    console.log(this.state.workout)
+    var workoutBegan = this.state.workout.began;
 
     //workouts sanity check
     // {this.state.workout ? this.state.workout.name : "no workout..."}
     return(
-      <div className="workouts">
+      <div className="workouts" >
+
+        <button className="btn btn-primary btn-lg btn-block"
+                disabled={workoutBegan ? "disabled" : ""}
+                onClick={this.handleStartWorkoutClick}>
+                Start Workout
+        </button>
         <hr/>
-        console.log(this.state.workout.workout_items)
-          {this.state.workout.workout_items.map(function(workout_item){
-            console.log("workout item in pill??")
-            console.log(workout_item)
-            var statusMsg = "wrong"
-            var statusColor = "tomato"
 
-            if (workout_item.completed) {
-              statusColor =  "lightgreen"
-              statusMsg = "Complete"
-            };
-
-
-            return(
-              <div>
-                <h4 style={ {background: statusColor} }>{statusMsg}</h4>
-                <WorkoutPill key={workout_item.id}  workout_item={workout_item}></WorkoutPill>
-                <button onClick={ component.handleButtonClick.bind(component, workout_item) } className="btn btn-default">√ Finished!</button>
-                <p><br/><br/></p>
-              </div>
-              )
-           })
-          }
+        <div className="pills" style={{position: 'relative'}} >
+          {this._renderPills(this.state.workout.workout_items)}
+          {this._renderOverlay(component.state.workout.began)}
+        </div>
       </div>
      )
   }

@@ -32,6 +32,6 @@ class Api::WorkoutsController < ApplicationController
   end
 
   def workout_params
-    params.require(:workout).permit(:name, :date, :time, :reps, :sets)
+    params.require(:workout).permit(:name, :date, :time, :began, :completed, :reps, :sets)
   end
 end

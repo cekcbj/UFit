@@ -1,7 +1,7 @@
 <ul class="users">
   <% @users.each do |user| %>
     <li>
-      <%=image_tag(user.profile_image, size: "50") %>
+    <%= image_tag attachment_url(user, :profile_image, :fill, 50, 50, format: "jpg"), :class => "squarish-img" %>
       <%= link_to user.first_name, user %>
     </li>
   <% end %>

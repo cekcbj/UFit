@@ -27,7 +27,7 @@ var WorkoutPill = React.createClass({
 
 
     return (
-      <div className="workout-item-modal">
+      <div className="workout-item-modal pill-container">
         <h4>{this.state.workout_item.exercise.name}</h4>
         Reps
         <span>{this.state.workout_item.reps}</span><br/>

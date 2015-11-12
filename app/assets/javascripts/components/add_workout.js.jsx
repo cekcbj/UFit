@@ -23,18 +23,10 @@ var AddWorkout = React.createClass({
 
   },
 
-  componentDidMount(){
-    this._fetchworkouts();
-    // this.workoutInterval = setInterval(this.fetchworkouts, 10000);
-  },
-
-  componentWillUnmount(){
-    // clearInterval(this.workoutInterval);
-  },
 
 
   //(1) create callback to handle data
-  _updateThisCompoent(newWorkoutItem){
+  _updateThiscomponent(newWorkoutItem){
     console.log('in the parent, we can set state everywhr')
     console.log(newWorkoutItem)
 
@@ -58,7 +50,16 @@ var AddWorkout = React.createClass({
     })
 
     //(2) Pass the callback as a prop to the child-component
-       //e.g. <MyComponent  notifyParent={this._updateThisCompoent}/>
+       //e.g. <MyComponent  notifyParent={this._updateThiscomponent}/>
+  },
+
+  componentDidMount(){
+    // this._fetchworkouts();
+     this.workoutInterval = setInterval(this._fetchworkouts, 5000);
+  },
+
+  componentWillUnmount(){
+     clearInterval(this.workoutInterval);
   },
 
   render: function() {
@@ -72,15 +73,14 @@ var AddWorkout = React.createClass({
         <hr/>
         <div className="workouts">
           {this.state.workout.workout_items.map(function(workout_item){
-            // console.log("workout item in pill??")
-            // console.log(workout_item)
+
             return <WorkoutPill key={workout_item.id} workout_item={workout_item}></WorkoutPill>
           })}
         </div>
 
         <hr/>
 
-        <WorkoutItemForm workout={this.state.workout} notifyParent={this._updateThisCompoent} ></WorkoutItemForm>
+        <WorkoutItemForm workout={this.state.workout} notifyParent={this._updateThiscomponent} ></WorkoutItemForm>
 
       </div>
   )

@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
    root 'dashboard#index'
 
    get 'dashboard/:workout_id' => 'dashboard#show', as: :enter_workout
 
    get 'users/discover' => 'users#index', as: :discover
-   get 'users/:id' =>      'users#show', as: :user
+   get 'users/:id/profile' =>      'users#show', as: :user
    get'signup' =>          'users#new', as: :sign_up
    post 'users' =>         'users#create'
+   get 'users/:id/profile/edit' => 'users#edit', as: :edit_profile
+   patch 'users/:id/profile' => 'users#update'
 
    get '/signin' =>        'sessions#new', as: :sign_in
    post '/signin' =>       'sessions#create'
@@ -19,7 +22,7 @@ Rails.application.routes.draw do
   get 'workouts/new' =>  'workouts#new', as: :new_workout
   post 'workouts' =>    'workouts#create', as: :workouts
   get 'workouts/:id' => 'workouts#show', as: :workout
-  post 'workouts/:id' => 'workouts#s  teal', as: :copy_workout
+  post 'workouts/:id' => 'workouts#steal', as: :copy_workout
   # get 'exercises/:id' => 'exercises#new', as: :exercises
   # post 'workouts/exercises' => 'exercises#create'
 
@@ -38,10 +41,10 @@ Rails.application.routes.draw do
     get 'workouts/:id/workout_items' => 'workout_items#new', as: :workout_items
     get "workouts" =>  'workouts#index'
     get "workouts/:id" => 'workouts#show'
-    post "workouts/:id/began" => 'workouts#began', as: :began_workout
+    post "dashboard/:id/began" => 'workouts#began', as: :began_workout
 
     post "workout_items/create" => 'workout_items#create', as: :completed_workout_item
-    patch "workout_items/update" => 'workout_items#update' 
+    patch "workout_items/update" => 'workout_items#update'
   end
 
 
