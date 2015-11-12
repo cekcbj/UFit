@@ -1,18 +1,18 @@
 <div class="container">
+  <div class="row">
+    <div class= "col-sm-6">
   <h1><%= @workout.name %></h1>
   <% if @workout.user == current_user %>
   <%= link_to workout_items_path, class:"btn workout-button" do%>
     <i class="fa fa-plus-square add-workout-button"> Add exercise</i>
   <% end %>
-  <%=link_to edit_workout_path(id: @workout.id) do %>
-  <div class="btn btn-default"> edit this workout </div>
+  <%=link_to edit_workout_path(id: @workout.id),class:"btn btn-default" do %>
+    <i>edit this workout</i>
   <% end %>
    <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
      <% else %>
-  <!--  -->
    <%= button_to 'Copy Workout', copy_workout_path(workout: @workout), method: :post, class: "btn-default" %>
    <% end %>
-   <button><i class="fa fa-clock-o timer"></i></button>
     <!--<table class="workout-item-show table">
       <thead>
         <tr>
@@ -33,6 +33,9 @@
 
     </table> -->
 </div>
+<%= current_user.first_name %>
+<div class="row">
+<h1>  Hello <%= current_user.first_name %></h1>
 <%=react_component 'AddWorkout',{workout: @workout}%>
 <%#react_component 'Workout',{workout: @workout} %>
 <p>
@@ -43,3 +46,8 @@
 <%= puts @workout.schedule.occurrences(Time.now + 1.year) %>
 # Export to ical
 puts @workouts.schedule.to_ical
+  </div>
+</div>
+  <div class="col-sm-6">
+    <div class "workoutsave-orNah">
+    <%= link_to 'Go to workout', enter_workout_path(workout_id: @workout.id), class: "btn btn-success" %>

@@ -1,20 +1,25 @@
 <div class = "container">
   <div class = "user-show">
 
+
+    <div class="row">
+      <div class="col-sm-3 profile-panel">
+        <% @user ||= current_user %>
+        <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), :class => "round-img" %>
+        <h3><%= @user.first_name %></h3>
+        Member since
+        <h4><%=@user.created_at %></h4>
+
   <% if current_user.following? @user%>
      <%= link_to "Stop Following #{@user.first_name}", stop_following_user_path(id: @user.id), method: :post %>
     <div>
 
-      <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), :class => "round-img" %>
     <% @workouts.each do |workout| %>
        <% if workout.began && !workout.completed %>
-       <%= link_to enter_workout_path(workout_id:workout.id) do %>
-          This user has a Workout In Progress Click here to view it.
-          <% end %>
-         <%=react_component 'Workout',{workout: workout} %>
-
+       
+        <h3>this user has a workout in progress</h3>
        <% else %>
-         this user has no work outs in progress
+        <h4>this user has no workout in progress"</h4>
          <br>
          Workouts scheduled
          <div class="workouts-list">
@@ -22,7 +27,6 @@
          </div>
         <% end %>
       <% end %>
-
       <% elsif current_user == @user%>
             <div class="container-fluid dashboard-view">
               <div class="row">
@@ -30,6 +34,7 @@
                   <% @user ||= current_user %>
                   <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), :class => "round-img" %>
                   <h3><%= @user.first_name %></h3>
+                  Member since
                   <h4><%=@user.created_at %></h4>
                   <div class="edit-profile">
                     <%= link_to edit_profile_path, class:"btn" do%>
@@ -37,17 +42,25 @@
                     <% end %>
                   </div>
                 </div>
-            Workouts scheduled
+                <div class="col-sm-6">
+          <h2> Upcoming Workouts</h2>
             <% @workouts.each do |workout| %>
-            <div class="workouts-list">
-              <%= link_to "View #{workout.name}", workout_path(id: workout.id) %>
+            <div class="workouts-list-show">
+              <div class="workout-show">
+              <%= link_to "#{workout.name}", workout_path(id: workout.id) %>
+              <%= workout.date %>
+            </div>
             </div>
             <% end %>
           </div>
+          <div class="col-sm-3">
+            <%= link_to workout_items_path, class:"btn workout-button" do%>
+              <i class="fa fa-plus-square add-workout-button"> Add workout</i>
+            <% end %>
+        </div>
         </div>
       <% else %>
-
-        <%= link_to "Follow #{@user.first_name}", follow_user_path(id: @user.id), method: :post %>
+        <h2><%= link_to "Follow #{@user.first_name}", follow_user_path(id: @user.id), method: :post %></h2>
       <% end %>
     </div>
   </div>

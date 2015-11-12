@@ -24,8 +24,8 @@ var InWorkout = React.createClass({
   },
 
   componentDidMount(){
-    //this._fetchworkouts();
-     this.workoutInterval = setInterval(this._fetchworkouts, 3000);
+    this._fetchworkouts();
+     this.workoutInterval = setInterval(this._fetchworkouts, 5000);
   },
 
   componentWillUnmount(){
@@ -36,7 +36,7 @@ var InWorkout = React.createClass({
   //(1) create callback to handle data
 
   handleStartWorkoutClick: function(){
-    var component = this.props;
+    var component = this;
     console.log(component)
 
     $.post("/api/dashboard/"+ this.state.workout.id +"/began")
@@ -78,27 +78,32 @@ var InWorkout = React.createClass({
       }).then(function(response){
 
         console.log('workout item response (check for .complete)')
-        console.log(response)
+        console.log(response,component.state)
 
         //1 find index workout_item that was updated on workout.workout_items & replace on new array
-        // var updatedWorkoutItemsList = component.state.workout.workout_items.map(function(wk_itm){
-          if (wk_itm.id === response.workout_item.id){
-            console.log(wk_itm.id, " ----- ", response.workout_item.id )
-            console.log(response.workout_item)
-            console.log(wk_itm.id)
+        var updatedWorkoutItemsList = component.state.workout.workout_items.map(function(wk_itm){
+          if (wk_itm.id === response.workout_item.id)
             return response.workout_item
-          }
+          //   console.log(wk_itm.id, " ----- ", response.workout_item.id )
+          //   console.log(response.workout_item)
+          //   console.log(wk_itm.id)
+          // }
           return wk_itm
-
-
+          // console.log(wk_itm)
+        })
         var workoutCopy = JSON.parse(JSON.stringify(component.state.workout))
 
         workoutCopy.workout_items = updatedWorkoutItemsList
         console.log(workoutCopy);
+        var isDone = !workoutCopy.workout_items.find(workout=>{return !workout.completed})
+        // console.log('-----------------',!isDone,isDone)
 
-        component.setState({
-          workout: workoutCopy,
-        })
+         if(isDone)
+           React.render(<WorkoutComplete workout={component.state.workout}/>,document.getElementById('root'));
+         else
+          component.setState({
+            workout: workoutCopy,
+          })
       });
 
 
@@ -115,7 +120,6 @@ var InWorkout = React.createClass({
         statusColor =  "#fff"
         statusMsg = "Complete"
       };
-
 
       return (
          <div className = "pillholder" style={ {background: statusColor} }>

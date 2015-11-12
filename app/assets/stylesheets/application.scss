@@ -13,8 +13,8 @@ $translucent-bg-color: rgba(255,255,255,.7);
 }
 
 body {
-  background:#fff;
-  color: #333;
+  background:#eee;
+  color: #222;
   font-family: 'Open Sans', sans-serif;
 }
 /**** Testing navbar ***/
@@ -104,7 +104,6 @@ header .navbar {
 .workout-button {
 
   background-color: #3E4771;
-  margin-bottom: 15px;
   padding-right:25px;
 }
 .add-workout-button {
@@ -128,9 +127,8 @@ i {
   }
 
 }
-.workout-form{
-display:none;
-}
+
+
 
 .pillholder{
   border:2px;
@@ -160,6 +158,15 @@ display:none;
 
 .workout-item {
   background-color: blue;
+}
+
+.workouts-list-show {
+
+  display:flex;
+
+  .workout-show{
+    flex:1
+  }
 }
 
 

@@ -4,7 +4,7 @@
   <div class="new-workout">
   <%= simple_form_for @workout do |f| %>
   <%= f.input :name, :hint => 'Name your workout'  %>
-  <%= f.input :schedule, as: :schedule %><br>
+  <%= f.input :schedule, as: :schedule %>
   <%= f.button :submit, :disable_with => 'Please wait ...' %>
   <% end %>
   </div>
