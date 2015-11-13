@@ -32,9 +32,16 @@ class Api::WorkoutsController < ApplicationController
 
     @workout.began = true
     @workout.save
-    pp "--- @workout after 'update' ----" *20
     pp @workout
     render(:show)
+  end
+  def completed
+    @workout = Workout.find_by(id: params[:id])
+    pp "--- @workout before ----" *20
+    pp @workout
+
+    @workout.completed = true
+    @workout.save
   end
 
   def workout_params

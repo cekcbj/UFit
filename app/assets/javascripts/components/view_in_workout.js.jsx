@@ -1,4 +1,4 @@
-var InWorkout = React.createClass({
+var ViewInWorkout = React.createClass({
   getInitialState(){
     return {
       workout: {
@@ -24,12 +24,12 @@ var InWorkout = React.createClass({
   },
 
   componentDidMount(){
-    this._fetchworkouts();
+    //this._fetchworkouts();
      this.workoutInterval = setInterval(this._fetchworkouts, 5000);
   },
 
   componentWillUnmount(){
-     clearInterval(this.workout_interval);
+     clearInterval(this.workoutInterval);
   },
 
 
@@ -66,50 +66,48 @@ var InWorkout = React.createClass({
   //
   // },
 
-  handleSingleItemClick: function(data) {
-     var component = this
-     console.log("button clicked");
-
-     $.ajax({
-        url: '/api/workout_items/update.json',
-        type: 'PATCH',
-        data: {jsonData: JSON.stringify(data)},
-        dataType: "json"
-      }).then(function(response){
-
-        console.log('workout item response (check for .complete)')
-        console.log(response,component.state)
-
-        //1 find index workout_item that was updated on workout.workout_items & replace on new array
-        var updatedWorkoutItemsList = component.state.workout.workout_items.map(function(wk_itm){
-          if (wk_itm.id === response.workout_item.id)
-            return response.workout_item
-          //   console.log(wk_itm.id, " ----- ", response.workout_item.id )
-          //   console.log(response.workout_item)
-          //   console.log(wk_itm.id)
-          // }
-          return wk_itm
-          // console.log(wk_itm)
-        })
-        var workoutCopy = JSON.parse(JSON.stringify(component.state.workout))
-
-        workoutCopy.workout_items = updatedWorkoutItemsList
-        console.log(workoutCopy);
-        var isDone = !workoutCopy.workout_items.find(workout=>{return !workout.completed})
-        // console.log('-----------------',!isDone,isDone)
-
-         if(isDone){
-           $.post("/api/dashboard/"+ component.state.workout.id +"/completed");
-           React.render(<WorkoutComplete workout={component.state.workout}/>,document.getElementById('root'));
-}
-         else
-          component.setState({
-            workout: workoutCopy,
-          })
-      });
-
-
-   },
+  // handleSingleItemClick: function(data) {
+  //    var component = this
+  //    console.log("button clicked");
+  //
+  //    $.ajax({
+  //       url: '/api/workout_items/update.json',
+  //       type: 'PATCH',
+  //       data: {jsonData: JSON.stringify(data)},
+  //       dataType: "json"
+  //     }).then(function(response){
+  //
+  //       console.log('workout item response (check for .complete)')
+  //       console.log(response,component.state)
+  //
+  //       //1 find index workout_item that was updated on workout.workout_items & replace on new array
+  //       var updatedWorkoutItemsList = component.state.workout.workout_items.map(function(wk_itm){
+  //         if (wk_itm.id === response.workout_item.id)
+  //           return response.workout_item
+  //         //   console.log(wk_itm.id, " ----- ", response.workout_item.id )
+  //         //   console.log(response.workout_item)
+  //         //   console.log(wk_itm.id)
+  //         // }
+  //         return wk_itm
+  //         // console.log(wk_itm)
+  //       })
+  //       var workoutCopy = JSON.parse(JSON.stringify(component.state.workout))
+  //
+  //       workoutCopy.workout_items = updatedWorkoutItemsList
+  //       console.log(workoutCopy);
+  //       var isDone = !workoutCopy.workout_items.find(workout=>{return !workout.completed})
+  //       // console.log('-----------------',!isDone,isDone)
+  //
+  //        if(isDone)
+  //          React.render(<WorkoutComplete workout={component.state.workout}/>,document.getElementById('root'));
+  //        else
+  //         component.setState({
+  //           workout: workoutCopy,
+  //         })
+  //     });
+  //
+  //
+  //  },
 
   _renderPills: function(w_itms){
      var component = this
@@ -127,8 +125,6 @@ var InWorkout = React.createClass({
          <div className = "pillholder" style={ {background: statusColor} }>
            <WorkoutPill key={workout_item.id}  workout_item={workout_item}></WorkoutPill>
            <p className="button-house">
-             <button onClick={ component.handleSingleItemClick.bind(component, workout_item) } className="pulse btn btn-default ">√ Finished!
-             </button>
           </p>
          </div>
        )
@@ -165,12 +161,6 @@ var InWorkout = React.createClass({
     return(
       <div className="workouts" >
 
-        <button className="btn btn-primary btn-lg btn-block"
-                disabled={workoutBegan ? "disabled" : ""}
-                onClick={this.handleStartWorkoutClick}>
-                Start Workout
-        </button>
-        <hr/>
 
         <div className="pills text-center" style={{position: 'relative'}} >
           {this._renderPills(this.state.workout.workout_items)}

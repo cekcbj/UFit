@@ -15,7 +15,7 @@
 //= require cocoon
 //= require materialize-sprockets
 //= require bootstrap-sprockets
-//= require turbolinks
+//  require turbolinks
 //= require jquery-ui
 //= require moment
 //=require underscore

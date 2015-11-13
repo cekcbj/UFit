@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     get "workouts" =>  'workouts#index'
     get "workouts/:id" => 'workouts#show'
     post "dashboard/:id/began" => 'workouts#began', as: :began_workout
-
+    post "dashboard/:id/completed" => 'workouts#completed', as: :completed_workout
     post "workout_items/create" => 'workout_items#create', as: :completed_workout_item
     patch "workout_items/update" => 'workout_items#update'
   end

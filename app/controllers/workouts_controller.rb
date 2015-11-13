@@ -41,6 +41,7 @@ end
        @new_workout = @my_workout.amoeba_dup
        @new_workout.user = current_user
        @new_workout.save
+       redirect_to user_path(id: current_user.id)
      end
 
 

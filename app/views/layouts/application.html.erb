@@ -3,7 +3,7 @@
 <head>
   <title>UFit</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application'%>
   <%= csrf_meta_tags %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -13,6 +13,35 @@
   <div class="wrapper">
     <%= yield %>
   </div>
+
+
+<script type="text/javascript">
+  $(document).on("ready",function(){
+    console.log("window---location")
+    console.log(window.location)
+    var $hdr_lis = $("header li")
+
+    switch (window.location.pathname){
+      case "/":
+        $("header li[data='home']").addClass('active')
+        break;
+      case "/users/discover":
+        $("header li[data='user-index']").addClass('active')
+        break;
+      case "/signin":
+        $("header li[data='signin']").addClass('active')
+        break;
+      case "/signup":
+        $("header li[data='signup']").addClass('active')
+        break;
+      default:
+        console.log('no pmatch')
+    }
+
+  })
+</script>
+
+
 
 </body>
 </html>

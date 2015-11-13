@@ -128,8 +128,11 @@ header .navbar {
   background-color: #3E4771;
   padding-right:25px;
 }
-.add-workout-button {
+.show-button {
+  margin-top:10px;
     font-size: 1.5em;
+    color:#1abc9c;
+
 }
 
 
@@ -195,6 +198,9 @@ i {
   .workout-show{
     flex:1
   }
+}
+.workout-show-link a {
+  text-decoration: none
 }
 
 .workout-complete

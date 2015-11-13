@@ -14,7 +14,7 @@
         <h3 class="user index"><%= @user.first_name %></h3>
         <h4><%=@user.created_at %></h4>
         <div class="view-profile">
-          <%= link_to user_path(id: @current_user.id), class:"btn" do%>
+          <%= link_to user_path(id: @current_user.id), class:"btn pretty-font" do%>
           <i class="fa fa-user">view profile</i>
           <% end %>
         </div>
