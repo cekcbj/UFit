@@ -114,18 +114,20 @@ var InWorkout = React.createClass({
      var pills = w_itms.map(function(workout_item){
 
       var statusMsg = "NOT Complete"
-      var statusColor = "tomato"
+      var statusColor = "#c0392b"
 
       if (workout_item.completed ) {
-        statusColor =  "#fff"
+        statusColor =  "#16a085"
         statusMsg = "Complete"
       };
 
       return (
          <div className = "pillholder" style={ {background: statusColor} }>
            <WorkoutPill key={workout_item.id}  workout_item={workout_item}></WorkoutPill>
-           <button onClick={ component.handleSingleItemClick.bind(component, workout_item) } className="pulse btn btn-default">√ Finished!</button>
-           <p><br/><br/></p>
+           <p className="button-house">
+             <button onClick={ component.handleSingleItemClick.bind(component, workout_item) } className="pulse btn btn-default ">√ Finished!
+             </button>
+          </p>
          </div>
        )
       })
@@ -168,7 +170,7 @@ var InWorkout = React.createClass({
         </button>
         <hr/>
 
-        <div className="pills" style={{position: 'relative'}} >
+        <div className="pills text-center" style={{position: 'relative'}} >
           {this._renderPills(this.state.workout.workout_items)}
           {this._renderOverlay(component.state.workout.began)}
         </div>

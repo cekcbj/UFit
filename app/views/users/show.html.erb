@@ -1,22 +1,27 @@
-<div class = "container">
+  <div class="container-fluid dashboard-view">
   <div class = "user-show">
 
 
+  <% if current_user.following? @user%>
     <div class="row">
       <div class="col-sm-3 profile-panel">
         <% @user ||= current_user %>
-        <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), :class => "round-img" %>
+        <% user_image = attachment_url(@user, :profile_image, :fill, 50, 50, format: "jpg").to_s.size > 0 %>
+        <%if user_image %>
+          <%= (image_tag attachment_url(@user, :profile_image, :fill, 300, 300, format: "jpg"), :class => "round-img")  %>
+        <%else %>
+          <img src="http://flathash.com/<%="#{user.first_name}"%>" alt='straight-hash' class="round-img"/>
+        <%end%>
         <h3><%= @user.first_name %></h3>
         Member since
         <h4><%=@user.created_at %></h4>
-
-  <% if current_user.following? @user%>
      <%= link_to "Stop Following #{@user.first_name}", stop_following_user_path(id: @user.id), method: :post %>
-    <div>
+     </div>
+   </div>
 
     <% @workouts.each do |workout| %>
        <% if workout.began && !workout.completed %>
-       
+
         <h3>this user has a workout in progress</h3>
        <% else %>
         <h4>this user has no workout in progress"</h4>
@@ -32,7 +37,12 @@
               <div class="row">
                 <div class="col-sm-3 profile-panel">
                   <% @user ||= current_user %>
-                  <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), :class => "round-img" %>
+                  <% user_image = attachment_url(@user, :profile_image, :fill, 50, 50, format: "jpg").to_s.size > 0 %>
+                  <%if user_image %>
+                    <%= (image_tag attachment_url(@user, :profile_image, :fill, 300, 300, format: "jpg"), :class => "round-img")  %>
+                  <%else %>
+                    <img src="http://flathash.com/<%="#{@user.first_name}"%>" alt='straight-hash' class="round-img"/>
+                  <%end%>
                   <h3><%= @user.first_name %></h3>
                   Member since
                   <h4><%=@user.created_at %></h4>
@@ -47,15 +57,15 @@
             <% @workouts.each do |workout| %>
             <div class="workouts-list-show">
               <div class="workout-show">
-              <%= link_to "#{workout.name}", workout_path(id: workout.id) %>
+              <%= link_to "#{workout.name}", workout_path(id: workout.id)%>
               <%= workout.date %>
             </div>
             </div>
             <% end %>
           </div>
           <div class="col-sm-3">
-            <%= link_to workout_items_path, class:"btn workout-button" do%>
-              <i class="fa fa-plus-square add-workout-button"> Add workout</i>
+            <%= link_to new_workout_path, class:"btn pretty-font" do%>
+              <i class="fa fa-plus-square add-workout-button "> Add workout</i>
             <% end %>
         </div>
         </div>

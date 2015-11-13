@@ -46,3 +46,5 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email, :profile_image, :password, :password_confirmation)
   end
 end
+
+#           <%= (image_tag attachment_url(user, :profile_image, :fill, 50, 50, format: "jpg"), :class => "squarish-img")  %>

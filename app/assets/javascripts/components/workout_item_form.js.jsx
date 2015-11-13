@@ -35,7 +35,7 @@ var WorkoutItemForm = React.createClass({
 
     render: function() {
       return (
-        <div className="workout_form">
+        <div className="workout-form pretty-font">
           <div className="input-group">
             <label>Exercise Name</label>
             <input type="text" className="form-control" ref="name"></input>
@@ -48,7 +48,9 @@ var WorkoutItemForm = React.createClass({
             <label>Sets</label>
             <input type="text" className="form-control" ref="sets"></input>
           </div>
-          <button onClick={this.handleButtonClick}>Submit</button>
+          <p className="button-house">
+             <button onClick={this.handleButtonClick} className="btn btn-info">+</button>
+          </p>
         </div>
       )
     }

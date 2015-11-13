@@ -5,16 +5,27 @@
     <div class="row">
       <div class="col-sm-3 profile-panel">
         <% @user ||= current_user %>
-        <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), :class => "round-img" %>
-        <h3><%= @user.first_name %></h3>
+        <% user_image = attachment_url(@user, :profile_image, :fill, 50, 50, format: "jpg").to_s.size > 0 %>
+        <%if user_image %>
+          <%= (image_tag attachment_url(@user, :profile_image, :fill, 300, 300, format: "jpg"), :class => "round-img")  %>
+        <%else %>
+          <img src="http://flathash.com/<%="#{@user.first_name}"%>" alt='straight-hash' class="round-img"/>
+        <%end%>
+        <h3 class="user index"><%= @user.first_name %></h3>
         <h4><%=@user.created_at %></h4>
         <div class="view-profile">
           <%= link_to user_path(id: @current_user.id), class:"btn" do%>
           <i class="fa fa-user">view profile</i>
           <% end %>
         </div>
+        <div>
+       <%= link_to new_workout_path, class:"btn pretty-font" do%>
+       <i class="fa fa-plus-square "> Add Workout</i>
+         <% end %>
+         </div>
         <div class="follower-box">
           <div id="following" class="stat">
+
             <h6>Following</h6>
             <%= @user.follow_count %>
           </div>
@@ -33,12 +44,6 @@
        </div>
       </div>
 
-         <div class="col-sm-2">
-           <div class="workout-button">
-           <%= link_to new_workout_path, class:"btn" do%>
-           <i class="fa fa-plus-square "> Add Workout</i>
-         </div>
-          <% end %>
       </div>
 
     </div>

@@ -63,21 +63,22 @@ var AddWorkout = React.createClass({
     // {this.state.workout ? this.state.workout.name : "no workout..."}
     return(
       <div>
-      <div className="col-md-3">
-        <hr/>
-        <div className="workouts ">
-        <WorkoutItemForm workout={this.state.workout} notifyParent={this._updateThiscomponent}></WorkoutItemForm>
+        <div className="col-sm-6">
+        {this.state.workout.workout_items.map(function(workout_item){
 
+          return <WorkoutPill key={workout_item.id} workout_item={workout_item}></WorkoutPill>
+        })}
+        </div>
+        <div className="col-sm-6">
+          <hr/>
+          <div className="workouts ">
+          <WorkoutItemForm workout={this.state.workout} notifyParent={this._updateThiscomponent}></WorkoutItemForm>
+
+          </div>
+
+          <hr/>
         </div>
 
-        <hr/>
-      </div>
-      <div className="col-md-4">
-      {this.state.workout.workout_items.map(function(workout_item){
-
-        return <WorkoutPill key={workout_item.id} workout_item={workout_item}></WorkoutPill>
-      })}
-      </div>
       </div>
   )
   }

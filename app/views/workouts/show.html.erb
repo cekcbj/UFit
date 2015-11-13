@@ -1,53 +1,59 @@
 <div class="container">
-  <div class="row">
-    <div class= "col-sm-6">
-  <h1><%= @workout.name %></h1>
-  <% if @workout.user == current_user %>
-  <%= link_to workout_items_path, class:"btn workout-button" do%>
-    <i class="fa fa-plus-square add-workout-button"> Add exercise</i>
-  <% end %>
-  <%=link_to edit_workout_path(id: @workout.id),class:"btn btn-default" do %>
-    <i>edit this workout</i>
-  <% end %>
-   <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
-     <% else %>
-   <%= button_to 'Copy Workout', copy_workout_path(workout: @workout), method: :post, class: "btn-default" %>
-   <% end %>
-    <!--<table class="workout-item-show table">
-      <thead>
-        <tr>
-           <th>Name</th>
-           <th>Reps</th>
-           <th>Sets</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @workout.workout_items.each do |workout_item| %>
-        <tr>
-           <td><%= workout_item.exercise ? workout_item.exercise.name : "" %></td>
-           <td><%= workout_item.reps%></td>
-           <td><%= workout_item.sets%></td>
-        </tr>
-          <% end %>
-      </tbody>
+    <div class="row">
+      <h1><%= @workout.name %></h1>
 
-    </table> -->
-</div>
-<%= current_user.first_name %>
-<div class="row">
-<h1>  Hello <%= current_user.first_name %></h1>
-<%=react_component 'AddWorkout',{workout: @workout}%>
-<%#react_component 'Workout',{workout: @workout} %>
-<p>
-  <strong>Schedule:</strong>
-  <%# Prints out a human-friendly description of the schedule, such as %>
-  <%= @workout.schedule %>
-</p>
-<%= puts @workout.schedule.occurrences(Time.now + 1.year) %>
-# Export to ical
-puts @workouts.schedule.to_ical
+      <div class= "col-sm-12">
+        <% if @workout.user == current_user %>
+        <%= link_to workout_items_path, class:"btn workout-button" do%>
+          <i class="fa fa-plus-square add-workout-button"> Add exercise</i>
+        <% end %>
+        <%=link_to edit_workout_path(id: @workout.id),class:"btn btn-default" do %>
+          <i>edit this workout</i>
+        <% end %>
+         <%= link_to 'Remove', delete_workout_path(id: @workout.id), method: :delete, class: "btn btn-danger" %>
+           <% else %>
+         <%= button_to 'Copy Workout', copy_workout_path(workout: @workout), method: :post, class: "btn-default" %>
+         <% end %>
+         <%= link_to 'Go to workout', enter_workout_path(workout_id: @workout.id), class: "btn btn-success" %>
+
+      <!--<table class="workout-item-show table">
+        <thead>
+          <tr>
+             <th>Name</th>
+             <th>Reps</th>
+             <th>Sets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @workout.workout_items.each do |workout_item| %>
+          <tr>
+             <td><%= workout_item.exercise ? workout_item.exercise.name : "" %></td>
+             <td><%= workout_item.reps%></td>
+             <td><%= workout_item.sets%></td>
+          </tr>
+            <% end %>
+        </tbody>
+
+      </table> -->
+      </div>
+    </div>
+    <div class="row">
+
+      <h1>  Hello <%= current_user.first_name %></h1>
+        <%=react_component 'AddWorkout',{workout: @workout}%>
+
+    </div>
+    <div class="row">
+      <p>
+        <strong>Schedule:</strong>
+        <%# Prints out a human-friendly description of the schedule, such as %>
+        <%= @workout.schedule %>
+      </p>
+
+    </div>
   </div>
 </div>
   <div class="col-sm-6">
     <div class "workoutsave-orNah">
-    <%= link_to 'Go to workout', enter_workout_path(workout_id: @workout.id), class: "btn btn-success" %>
+  </div>
+</div>

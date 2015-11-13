@@ -3,15 +3,15 @@
   <div class="container-fluid">
     <div class="container">
       <div class="row">
-        <div class="col-sm-6 col-sm-offset-3 translucent-bg">
+        <div class="col-sm-6 col-sm-offset-3 translucent-bg pretty-font">
           <%= simple_form_for @user do |u| %>
-            <%= u.input :first_name %>
-            <%= u.input :last_name  %>
-            <%= u.input :email %>
+            <%= u.input :first_name, class:"pretty-font" %>
+            <%= u.input :last_name, class:"pretty-font"%>
+            <%= u.input :email, class:"pretty-font" %>
             <%= u.attachment_field :profile_image %>
-            <%= u.input :password %>
-            <%= u.input :password_confirmation, label: "Password Confirmation" %>
-            <%= u.submit "Sign Up", class: "btn btn-primary btn-block btn-lg" %>
+            <%= u.input :password , class:"pretty-font"%>
+            <%= u.input :password_confirmation, label: "Password Confirmation", class:"pretty-font" %>
+            <%= u.submit "Sign Up", class: "btn btn-primary btn-block btn-lg pretty-font" %>
           <% end %>
         </div>
       </div>

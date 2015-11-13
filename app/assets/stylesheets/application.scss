@@ -1,9 +1,10 @@
-$translucent-bg-color: rgba(255,255,255,.7);
+$translucent-bg-color: rgba(000,000,000,.7);
 
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap-datetimepicker';
+@import 'bootstrap-swatch';
 @import 'clndr';
 @import 'navbar';
 
@@ -13,15 +14,19 @@ $translucent-bg-color: rgba(255,255,255,.7);
 }
 
 body {
-  background:#eee;
+  background:#ddd;
   color: #222;
   font-family: 'Open Sans', sans-serif;
 }
-/**** Testing navbar ***/
+
+.button-house{
+    margin: 10px 0 0;
+    text-align: center;
+}
 
 .round-img {
-  border:solid 3px;
-  border-radius: 50px;
+  border: solid 3px #fff;
+  border-radius: 50%;
 }
 
 
@@ -30,19 +35,42 @@ body {
   border-radius:2px;
 }
 
+/**** Testing navbar ***/
+
+
 // MY STYLES
 .wrapper{padding-top:66px;
 
 }
-.nav-color {
-  background-color: #7f8c8d;
+header.nav-color{
+  background-image: none;
+  background-color: white;
+  color: #aa3321;
 }
+
+.Ufit a{
+
+  color:#1abc9c;
+}
+
+nav a {
+
+  color:#1abc9c;
+}
+
+
+.pretty-font {
+  color:#1abc9c;
+}
+.pretty-font-darker {
+  color: darken(#16a085, 0%);
+}t
 
 .reps { margin-top:10px;}
 
 
 .landing-hero {
-  background: url("http://lorempixel.com/1200/900/sports/6/") 100% 100% no-repeat;
+  background: url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5T7S6Axbkd2k6Gd-Va5KCdWFR9FY6XaKP73p7Q6KvqpOnMAqI") 100% 100% no-repeat;
   background-size: cover;
   height:100vh;
   h1 {
@@ -70,6 +98,11 @@ header .navbar {
 
 }
 
+.view-profile {
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
 .follower-box{
   display:flex;
   text-align: center;
@@ -79,26 +112,15 @@ header .navbar {
 }
 
 
-
-
-.signup-form{
+.new-workout,
+.signup-form {
 
   .translucent-bg{
-    padding-top:15px;
-    padding-bottom:15px;
+    padding: 15px;
       background: $translucent-bg-color;
 
   }
 
-
-}
-
-
-
-.round-img {
-  border:solid 3px;
-  border-color:gray;
-  border-radius: 50px;
 }
 
 .workout-button {
@@ -107,7 +129,6 @@ header .navbar {
   padding-right:25px;
 }
 .add-workout-button {
-  color:#fff;
     font-size: 1.5em;
 }
 
@@ -131,8 +152,15 @@ i {
 
 
 .pillholder{
+  width: 80%;
+  margin: 0 auto;
   border:2px;
   border-radius:50px;
+  padding-bottom: 10px;
+  border: #333 6px solid;
+  margin-bottom: 10px;
+
+  >*{text-shadow: 1px 1px 4px #eee;}
 }
 
 @keyframes pulse {
@@ -169,14 +197,12 @@ i {
   }
 }
 
-
 .workout-complete
 .workoutname{
   color:red;
 }
 
 .workout-item-modal{
-  width:80%;
   margin: 10px;
   padding:10px;
   border-radius:3px;
@@ -185,3 +211,11 @@ i {
 .notmonth { color:#ccc;}
 
 .today {background-color: #D7F2FF;}
+
+.workout-form{
+  background: #333;
+  padding: 13px;
+  border-radius: 5px;
+
+
+}
