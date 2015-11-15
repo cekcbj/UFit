@@ -52,17 +52,11 @@
    </div>
 
     <% @workouts.each do |workout| %>
-       <% if workout.began && !workout.completed %>
 
-        <h3>this user has a workout in progress</h3>
-       <% else %>
-        <h4>this user has no workout in progress"</h4>
-         <br>
          Workouts scheduled
          <div class="workouts-list">
            <%= link_to "View #{workout.name}", workout_path(id: workout.id) %>
          </div>
-        <% end %>
       <% end %>
       <% elsif current_user == @user%>
             <div class="container-fluid dashboard-view">
